@@ -1,9 +1,22 @@
 <?php
 
+use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 
 new class extends Component {
+
+    #[Validate('required|string|max:255')] //validação de limite de caracter de 255 como máximo
     public string $message = '';
+
+
+    public function store(): void
+    {
+        $validated = $this->validate();
+
+        auth()->user()->chirps()->create($validated);
+    }
+
+
 }; ?>
 
 <div>
